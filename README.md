@@ -11,9 +11,9 @@ as well as the distance from local players at which the opacity is applied.
 
 ## Hotkeys:
 
-| Key                 |  Function                         |
+| Key                 |  Function                          |
 | ---                 |                                --- |
-| Ctrl + O            | Toggle CamHog on or off            |
+| Ctrl + o            | Toggle CamHog on or off            |
 | Ctrl + + (Plus)     | Increase Opacity                   |
 | Ctrl + - (Minus)    | Decrease Opacity                   |
 | Ctrl + . (Dot)      | Increase Distance                  |
