@@ -9,15 +9,15 @@ You can set the opacity of non local players,
 as well as the distance from local players at which the opacity is applied.
 
 
-Hotkeys:
+## Hotkeys:
 
-| Key          |  Overrides                         |
-| ---          |                                --- |
-| Ctrl + O     | Toggle CamHog on or off            |
-| Ctrl + +     | Increase Opacity                   |
-| Ctrl + -     | Decrease Opacity                   |
-| Ctrl + .     | Increase Distance                  |
-| Ctrl + ,     | Decrease Distance                  |
+| Key                 |  Function                         |
+| ---                 |                                --- |
+| Ctrl + O            | Toggle CamHog on or off            |
+| Ctrl + + (Plus)     | Increase Opacity                   |
+| Ctrl + - (Minus)    | Decrease Opacity                   |
+| Ctrl + . (Dot)      | Increase Distance                  |
+| Ctrl + , (Comma)    | Decrease Distance                  |
 
 (Keybindings can be changed in the config file `BepInEx\config\CamHog.cfg`.)
 
