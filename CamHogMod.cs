@@ -28,9 +28,7 @@ namespace CamHogMod
         void Awake()
         {
             Debug.Log("All Eyes on ME, plz!");
-            GameSettings.GetInstance().DebugChallengeGhosts = true;
             new Harmony("CamHog").PatchAll();
-            GameSettings.GetInstance().DefaultGameMode = GameState.GameMode.CHALLENGE;
 
             Enabled = Config.Bind("General", "Enabled", true);
             PlayerDistance = Config.Bind("General", "PlayerDistance", 5, "Distance in which other players are faded, -1 for always fade");
