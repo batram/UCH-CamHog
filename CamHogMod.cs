@@ -4,15 +4,16 @@ using UnityEngine;
 using System.Reflection;
 using BepInEx.Configuration;
 
-[assembly: AssemblyVersion("0.0.0.1")]
-[assembly: AssemblyInformationalVersion("0.0.0.1")]
+[assembly: AssemblyVersion("0.0.0.2")]
+[assembly: AssemblyInformationalVersion("0.0.0.2")]
 
 namespace CamHogMod
 {
-    [BepInPlugin("CamHog", "CamHog", "0.0.0.1")]
+    [BepInPlugin("CamHog", "CamHog", "0.0.0.2")]
     public class CamHogMod : BaseUnityPlugin
     {
         public static ConfigEntry<bool> Enabled;
+        public static ConfigEntry<bool> EnableDistance;
         public static ConfigEntry<int> PlayerDistance;
         public static ConfigEntry<float> Opacity;
 
@@ -31,6 +32,7 @@ namespace CamHogMod
             new Harmony("CamHog").PatchAll();
 
             Enabled = Config.Bind("General", "Enabled", true);
+            EnableDistance = Config.Bind("General", "EnableDistance", true, "Disable distance checking (for performance)");
             PlayerDistance = Config.Bind("General", "PlayerDistance", 5, "Distance in which other players are faded, -1 for always fade");
             Opacity = Config.Bind("General", "Opacity", 0.30f, "Set the alpha/transparency of other Players. [1: solid, ..., 0: invisible]");
 
@@ -43,17 +45,24 @@ namespace CamHogMod
 
         static bool isTooClose(Character offender)
         {
+            if (!EnableDistance.Value)
+            {
+                return true;
+            }
             if (LobbyManager.instance != null)
             {
-                foreach (Character cha in Resources.FindObjectsOfTypeAll<Character>())
+                foreach (Player pla in PlayerManager.instance.playerList)
                 {
-                    if (cha != null && isLocal(cha))
-                    {
-                        float dis = Vector3.Distance(offender.transform.position, cha.transform.position);
-
-                        if (dis <= PlayerDistance.Value)
+                    if(pla != null) {
+                        Character cha = pla.PlayerCharacter;
+                        if (cha != null && isLocal(cha))
                         {
-                            return true;
+                            float dis = Vector3.Distance(offender.transform.position, cha.transform.position);
+
+                            if (dis <= PlayerDistance.Value)
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -85,6 +94,11 @@ namespace CamHogMod
 
         public static void DrawDebugCircle(Character cha)
         {
+            if (!EnableDistance.Value)
+            {
+                return;
+            }
+
             LineRenderer lineRenderer = cha.gameObject.GetComponent<LineRenderer>();
 
             if (!cha.picked || !isLocal(cha) || PlayerDistance.Value <= 1)
@@ -134,8 +148,6 @@ namespace CamHogMod
             }
 
         }
-
-
 
         [HarmonyPatch(typeof(Character), nameof(Character.Update))]
         static class CharacterUpdatePatch
