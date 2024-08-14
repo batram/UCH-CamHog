@@ -176,10 +176,7 @@ namespace CamHogMod
                 if (shouldFade(__instance.character))
                 {
                     __instance.currentOpacity = Opacity.Value;
-                } else
-                {
-                    __instance.currentOpacity = 1f;
-                }
+                } 
             }
         }
 
